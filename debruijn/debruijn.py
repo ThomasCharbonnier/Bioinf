@@ -78,12 +78,14 @@ def read_fastq(fastq_file):
 
 
 def cut_kmer(read, kmer_size):
-    for i in read:
-        j=0
-        while (j<kmer_size):
-            next(i)
-            j+=1
-    pass
+    i=0
+    taillelimite = i+kmer_size
+    while  ( taillelimite <len(read) +1):
+        kmer = read[i:i+kmer_size]
+        yield kmer
+        i+=1
+        taillelimite+=1 
+
 
 
 def build_kmer_dict(fastq_file, kmer_size):
