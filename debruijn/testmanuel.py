@@ -23,7 +23,7 @@ import random
 random.seed(9001)
 from random import randint
 import statistics
-
+import matplotlib
 
 __author__ = "Your Name"
 __copyright__ = "Universite Paris Diderot"
@@ -67,81 +67,15 @@ def get_arguments():
 
 
 def read_fastq(fastq_file):
-    if(isfile(fastq_file)):
-        with open(fastq_file, "r") as monf:
-            for line in monf:
-                yield next(monf).replace('\n','')
-                next(monf)
-                next(monf)
-                
+    if (isfile(fastq_file)):
+        with open(fastq_file,"rt") as f:
+            yield next(f).strip()
+
+
+gen = read_fastq("/mnt/d/IA/BioInformatique/debruijn-tp/data/eva71_two_reads.fq")
+a=next(gen)
+print(a)
 
 
 
-def cut_kmer(read, kmer_size):
-    for i in read:
-        j=0
-        while (j<kmer_size):
-            next(i)
-            j+=1
-    pass
 
-
-def build_kmer_dict(fastq_file, kmer_size):
-    pass
-
-
-def build_graph(kmer_dict):
-    pass
-
-
-def remove_paths(graph, path_list, delete_entry_node, delete_sink_node):
-    pass
-
-def std(data):
-    pass
-
-
-def select_best_path(graph, path_list, path_length, weight_avg_list, 
-                     delete_entry_node=False, delete_sink_node=False):
-    pass
-
-def path_average_weight(graph, path):
-    pass
-
-def solve_bubble(graph, ancestor_node, descendant_node):
-    pass
-
-def simplify_bubbles(graph):
-    pass
-
-def solve_entry_tips(graph, starting_nodes):
-    pass
-
-def solve_out_tips(graph, ending_nodes):
-    pass
-
-def get_starting_nodes(graph):
-    pass
-
-def get_sink_nodes(graph):
-    pass
-
-def get_contigs(graph, starting_nodes, ending_nodes):
-    pass
-
-def save_contigs(contigs_list, output_file):
-    pass
-
-#==============================================================
-# Main program
-#==============================================================
-def main():
-    """
-    Main program function
-    """
-    # Get arguments
-    args = get_arguments()
-
-
-if __name__ == '__main__':
-    main()
