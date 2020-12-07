@@ -68,11 +68,11 @@ def get_arguments():
 
 def read_fastq(fastq_file):
     if(isfile(fastq_file)):
-        with open(fastq_file, "r") as monf:
-            for line in monf:
-                yield next(monf).replace('\n','')
-                next(monf)
-                next(monf)
+        with open(fastq_file, "r") as f:
+            for line in f:
+                yield next(f).replace('\n','')
+                next(f)
+                next(f)
                 
 
 
@@ -89,7 +89,15 @@ def cut_kmer(read, kmer_size):
 
 
 def build_kmer_dict(fastq_file, kmer_size):
-    pass
+    dictio = dict()
+    for gen in read_fastq(fastq_file):
+        kmers = cut_kmer(gen,kmer_size)
+        for kmer in kmers:
+            if (kmer in dictio):
+                dictio[kmer]+=1
+            else:
+                dictio[kmer]=1
+    return dictio
 
 
 def build_graph(kmer_dict):
