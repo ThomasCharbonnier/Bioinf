@@ -137,7 +137,8 @@ def get_starting_nodes(graph):
     return [node for node,degree in graph.in_degree() if degree==0]
 
 def get_sink_nodes(graph):
-    pass
+    return [node for node,degree in graph.out_degree() if degree ==0 ]
+    
 
 def get_contigs(graph, starting_nodes, ending_nodes):
     pass
