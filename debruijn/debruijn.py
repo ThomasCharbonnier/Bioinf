@@ -141,8 +141,18 @@ def get_sink_nodes(graph):
     
 
 def get_contigs(graph, starting_nodes, ending_nodes):
-    pass
+    L=[]
+    for i in starting_nodes:
+        for j in ending_nodes:
+            chemin = nx.shortest_path(graph, i, j)
+            tmp = chemin[0]
+            for k in range(1,len(chemin)):
+                tmp += chemin[k][len(starting_nodes[0])-1]
+            taille = len(tmp)
+            L.append((tmp,taille))
+    return L
 
+    
 def save_contigs(contigs_list, output_file):
     pass
 
