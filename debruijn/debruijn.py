@@ -107,11 +107,6 @@ def build_graph(kmer_dict):
     return G
 
     
-
-    
-    
-
-
 def remove_paths(graph, path_list, delete_entry_node, delete_sink_node):
     pass
 
@@ -139,7 +134,7 @@ def solve_out_tips(graph, ending_nodes):
     pass
 
 def get_starting_nodes(graph):
-    pass
+    return [node for node,degree in graph.in_degree() if degree==0]
 
 def get_sink_nodes(graph):
     pass
