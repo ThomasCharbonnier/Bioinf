@@ -67,15 +67,50 @@ def get_arguments():
 
 
 def read_fastq(fastq_file):
-    if (isfile(fastq_file)):
-        with open(fastq_file,"rt") as f:
-            yield next(f).strip()
-
-
-gen = read_fastq("/mnt/d/IA/BioInformatique/debruijn-tp/data/eva71_two_reads.fq")
-a=next(gen)
-print(a)
-
+    if(isfile(fastq_file)):
+        with open(fastq_file, "r") as f:
+            for line in f:
+                yield next(f).replace('\n','')
+                next(f)
+                next(f)
+                
 
 
 
+def cut_kmer(read, kmer_size):
+    i=0
+    taillelimite = i+kmer_size
+    while  ( taillelimite <len(read) +1):
+        kmer = read[i:i+kmer_size]
+        yield kmer
+        i+=1
+        taillelimite+=1 
+
+
+
+def build_kmer_dict(fastq_file, kmer_size):
+    dictio = dict()
+    for gen in read_fastq(fastq_file):
+        kmers = cut_kmer(gen,kmer_size)
+        for kmer in kmers:
+            if (kmer in dictio):
+                dictio[kmer]+=1
+            else:
+                dictio[kmer]=1
+    return dictio
+
+
+def build_graph(kmer_dict):
+    G=nx.DiGraph()
+   
+    for kmer,poid in kmer_dict.items():
+        G.add_edge(kmer[:-1] ,kmer[1:], weight=poid)
+
+        for kmer_pot in kmer_dict.keys():
+            if (kmer_pot[:-1] == kmer[1:]):
+                G.add_edge(kmer[1:],kmer_pot[:-1],weight=poid)
+
+    return G
+
+d = {"ABCD":3,"BCDE":5,"ABCT":7}
+G = build_graph(d)

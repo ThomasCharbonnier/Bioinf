@@ -36,7 +36,7 @@ def test_build_kmer_dict():
     assert kmer_dict["AGA"] == 2
 
 def test_build_graph():
-    file = open(os.path.abspath(os.path.join(os.path.dirname(__file__), "kmer.pck")),'rb')
+    file = open(os.path.abspath(os.path.join(os.path.dirname(__file__), "kmer1.pck")),'rb')
     kmer_dict = pickle.load(file)
     graph = build_graph(kmer_dict)
     #TCAGAGA
@@ -51,7 +51,7 @@ def test_build_graph():
     assert "GA" in graph
     assert graph.edges["AG", "GA"]['weight'] == 2
     file.close()
-
+    
 # def test_build_graph_comp():
 #     file = open(os.path.abspath(os.path.join(os.path.dirname(__file__), "kmer_comp.pck")),'rb')
 #     kmer_dict = pickle.load(file)
