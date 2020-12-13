@@ -108,7 +108,20 @@ def build_graph(kmer_dict):
 
     
 def remove_paths(graph, path_list, delete_entry_node, delete_sink_node):
-    pass
+    G = nx.DiGraph(graph)
+    for liste in path_list:
+        for i in range(len(liste)-1):
+            G.remove_edge(liste[i],liste[i+1])
+
+            if (i != 0 and i != len(liste)-1):
+                G.remove_node(liste[i])
+            elif (i==0 and delete_entry_node==True):
+                G.remove_node(liste[i])
+
+        if delete_sink_node:
+            G.remove_node(liste[-1])
+    return G
+    
 
 def std(data):
     return statistics.stdev(data)
