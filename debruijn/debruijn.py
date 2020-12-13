@@ -152,8 +152,18 @@ def get_contigs(graph, starting_nodes, ending_nodes):
             L.append((tmp,taille))
     return L
 
-    
+def fill(text, width=80):
+    """Split text with a line return to respect fasta format"""
+    return os.linesep.join(text[i:i+width] for i in range(0, len(text), width))
+
 def save_contigs(contigs_list, output_file):
+    with open(output_file,'w') as f:
+        c=0
+        for contig,tailleContig in contigs_list:
+            print(contig,tailleContig)
+            f.write(f">contig_{c} len={tailleContig}\n")
+            f.write(f"{fill(contig)}\n")
+            c+=1
     pass
 
 #==============================================================
