@@ -111,7 +111,7 @@ def remove_paths(graph, path_list, delete_entry_node, delete_sink_node):
     pass
 
 def std(data):
-    pass
+    return statistics.stdev(data)
 
 
 def select_best_path(graph, path_list, path_length, weight_avg_list, 
@@ -119,7 +119,12 @@ def select_best_path(graph, path_list, path_length, weight_avg_list,
     pass
 
 def path_average_weight(graph, path):
-    pass
+    c=0
+    n=0
+    for i in range(len(path)-1):
+        c += graph[path[i]][path[i+1]]["weight"]
+        n+=1
+    return c/n
 
 def solve_bubble(graph, ancestor_node, descendant_node):
     pass
